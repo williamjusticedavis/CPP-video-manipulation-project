@@ -1,12 +1,15 @@
 # Video Processing Application
 
-This C++ console application allows users to process videos by resizing them or adding text overlays. The application utilizes OpenCV for video processing and CMake as the build system.
+This C++ console application allows users to process videos by resizing them, adding text overlays, trimming, rotating, and applying filters. The application utilizes OpenCV for video processing and CMake as the build system.
 
 ## Features
 
 - **Video Conversion**: Converts input videos to `.avi` format.
 - **Resize Video**: Allows the user to resize the video to custom dimensions.
 - **Add Text Overlay**: Adds a user-defined text overlay to the video.
+- **Trim Video**: Trims a specific portion of the video based on user-defined start and end times.
+- **Rotate Video**: Rotates the video by 90, 180, or 270 degrees.
+- **Filter Application**: Applies filters like grayscale and blur to the video.
 
 ## Prerequisites
 
@@ -79,6 +82,9 @@ Once you run the application, you'll be presented with the following options:
 
 1. **Resize the video**: Enter your desired width and height, and the program will resize the video and save it to the output folder.
 2. **Add text overlay**: Type the text you want to overlay on the video, and the program will add it and save the new video to the output folder.
+3. **Trim the video**: Enter the start and end times in seconds to trim the video.
+4. **Rotate the video**: Choose to rotate the video by 90, 180, or 270 degrees.
+5. **Apply filter**: Choose to apply a grayscale or blur filter to the video.
 
 After processing, the program will convert the video into `.avi` format.
 
