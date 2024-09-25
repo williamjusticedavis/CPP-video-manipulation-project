@@ -1,15 +1,15 @@
 # Video Processing Application
 
-This C++ console application allows users to process videos by resizing them, adding text overlays, trimming, rotating, and applying filters. The application utilizes OpenCV for video processing and CMake as the build system.
+This C++ console application allows users to process videos by converting formats, resizing, adding text overlays, trimming, rotating, and applying filters. The application utilizes OpenCV for video processing and CMake as the build system.
 
 ## Features
 
-- **Video Conversion**: Converts input videos to `.avi` format.
+- **Video Conversion**: Converts input videos to .avi, .mp4, or .mov format.
 - **Resize Video**: Allows the user to resize the video to custom dimensions.
-- **Add Text Overlay**: Adds a user-defined text overlay to the video.
+- **Add Text Overlay**: Adds a user-defined text overlay to the video at a custom position.
 - **Trim Video**: Trims a specific portion of the video based on user-defined start and end times.
 - **Rotate Video**: Rotates the video by 90, 180, or 270 degrees.
-- **Filter Application**: Applies filters like grayscale and blur to the video.
+- **Filter Application**: Applies filters like grayscale or blur to the video.
 
 ## Prerequisites
 
@@ -52,8 +52,7 @@ CPProject/
 ├── src/                 # Source code
 │   ├── main.cpp
 │   └── video_processing.cpp
-├── input/               # Input folder (contains the video to be processed)
-│   └── myVideo.mp4
+├── input/               # Input folder (for easier use - enter your video here)
 └── output/              # Output folder (where processed videos are saved)
 
 ## Build and Run the Application
@@ -74,19 +73,30 @@ To build and run the application, follow these steps:
 
 3. **Run the application**:
 
-   ./VideoProcessingApp ../input/myVideo.mp4 
+   ./VideoProcessingApp ../input/<the-name-of-your-video>
+   
+   You can use any supported video format (e.g., `.mp4`, `.avi`, `.mov`).
 
 ## How to Use the Application
 
-Once you run the application, you'll be presented with the following options:
+Once you run the application, you’ll be presented with two options:
 
-1. **Resize the video**: Enter your desired width and height, and the program will resize the video and save it to the output folder.
-2. **Add text overlay**: Type the text you want to overlay on the video, and the program will add it and save the new video to the output folder.
-3. **Trim the video**: Enter the start and end times in seconds to trim the video.
-4. **Rotate the video**: Choose to rotate the video by 90, 180, or 270 degrees.
-5. **Apply filter**: Choose to apply a grayscale or blur filter to the video.
+	1.	Perform all processing steps sequentially.
+	2.	Choose 1 specific processing operation to apply.
 
-After processing, the program will convert the video into `.avi` format.
+1. **Video Conversion**: The user will be prompted to choose the output video format (`.avi`, `.mp4`, or `.mov`).
+
+2. **Resize the video**: Enter your desired width and height, and the program will resize the video and save it to the output folder.
+
+3. **Add text overlay**: Type the text you want to overlay on the video, specify the X and Y positions, and the program will add the text and save the new video to the output folder.
+
+4. **Trim the video**: Enter the start and end times in seconds to trim the video.
+
+5. **Rotate the video**: Choose to rotate the video by 90, 180, or 270 degrees.
+
+6. **Apply filter**: Choose to apply a grayscale or blur filter to the video.
+
+After processing, the program will save the video in the selected format to the `output` folder.
 
 ## License
 

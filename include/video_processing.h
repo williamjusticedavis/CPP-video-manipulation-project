@@ -3,11 +3,12 @@
 
 #include <string>
 
-void resizeVideo(const std::string& inputPath, const std::string& outputPath, int width, int height);
-void addTextOverlay(const std::string& inputPath, const std::string& outputPath, const std::string& text);
-void trimVideo(const std::string& inputPath, const std::string& outputPath, double startTime, double endTime);
-void rotateVideo(const std::string& inputPath, const std::string& outputPath, int angle);
-void applyGrayscale(const std::string& inputPath, const std::string& outputPath); // New function
-void applyBlur(const std::string& inputPath, const std::string& outputPath); // New function
+// Functions declarations 
+void resizeVideo(const std::string& inputPath, const std::string& outputPath, int width, int height, int codec);
+void addTextOverlay(const std::string &inputPath, const std::string &outputPath, const std::string &text, int x, int y, int codec);
+void trimVideo(const std::string& inputPath, const std::string& outputPath, double startTime, double endTime, int codec);
+void rotateVideo(const std::string& inputPath, const std::string& outputPath, int angle, int codec);
+void applyGrayscale(const std::string& inputPath, const std::string& outputPath, int codec);
+void applyBlur(const std::string& inputPath, const std::string& outputPath, int codec);
 
-#endif // VIDEO_PROCESSING_H
+#endif
