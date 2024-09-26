@@ -106,10 +106,9 @@ void trimVideo(const std::string& inputPath, const std::string& outputPath, doub
     }
     std::cout << "Video trimmed successfully. Output saved to " << outputPath << std::endl;
 }
-
-// Rotating function
+// Rotating video
 void rotateVideo(const std::string& inputPath, const std::string& outputPath, int angle, int codec) {
-    std::cout << "Rotating video by " << angle << " degrees..." << std::endl;  // Ensure the right message
+    std::cout << "Rotating video by " << angle << " degrees..." << std::endl;
 
     cv::VideoCapture cap(inputPath);
     if (!cap.isOpened()) {
@@ -121,13 +120,29 @@ void rotateVideo(const std::string& inputPath, const std::string& outputPath, in
     int width = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
     int height = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT));
 
-    // Swap width and height for 90 or 270-degree rotations
+    // No rotation (0 or 360 degrees)
+    if (angle == 0) {
+        std::cout << "No rotation applied, copying video as-is..." << std::endl;
+        cv::VideoWriter writer(outputPath, codec, fps, cv::Size(width, height));
+        if (!writer.isOpened()) {
+            std::cerr << "Error: Could not open output video file for copying." << std::endl;
+            return;
+        }
+
+        cv::Mat frame;
+        while (cap.read(frame)) {
+            writer.write(frame); 
+        }
+        std::cout << "Video copy complete. Output saved to " << outputPath << std::endl;
+        return;
+    }
+
+    // Swap width and height for 90 or 270 degree rotation
     if (angle == 90 || angle == 270) {
         std::swap(width, height);
     }
 
     cv::VideoWriter writer(outputPath, codec, fps, cv::Size(width, height));
-
     if (!writer.isOpened()) {
         std::cerr << "Error: Could not open output video file for rotating." << std::endl;
         return;
@@ -143,9 +158,7 @@ void rotateVideo(const std::string& inputPath, const std::string& outputPath, in
                 cv::rotate(frame, rotatedFrame, cv::ROTATE_90_CLOCKWISE);
                 break;
             case 180:
-                // Rotate twice by 90 degrees to achieve 180 degrees
-                cv::rotate(frame, rotatedFrame, cv::ROTATE_90_CLOCKWISE);
-                cv::rotate(rotatedFrame, rotatedFrame, cv::ROTATE_90_CLOCKWISE);
+                cv::rotate(frame, rotatedFrame, cv::ROTATE_180);
                 break;
             case 270:
                 cv::rotate(frame, rotatedFrame, cv::ROTATE_90_COUNTERCLOCKWISE);
@@ -156,6 +169,7 @@ void rotateVideo(const std::string& inputPath, const std::string& outputPath, in
         }
         writer.write(rotatedFrame);
     }
+
     std::cout << "Video rotation complete. Output saved to " << outputPath << std::endl;
 }
 

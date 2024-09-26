@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
         std::string text;
         int width, height;
         double startTime, endTime;
-        int rotationChoice, filterChoice;
+        int filterChoice, angle;
         int x, y;  
 
         // Step 1: Collect Resize Video input
@@ -93,12 +93,19 @@ int main(int argc, char* argv[]) {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
         
         // Step 3: Collect Rotate Video input
-        std::cout << "Select rotation angle:" << std::endl;
+        std::cout << "Select rotation angle (0, 1, 2 or 3):" << std::endl;
+        std::cout << "0. No rotation" << std::endl;  // Added option for no rotation
         std::cout << "1. 90 degrees" << std::endl;
         std::cout << "2. 180 degrees" << std::endl;
         std::cout << "3. 270 degrees" << std::endl;
-        std::cin >> rotationChoice;
+        std::cin >> angle;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        // Map user input to the correct angle
+        if (angle != 0 && angle != 90 && angle != 180 && angle != 270) {
+            std::cerr << "Invalid rotation choice. Exiting..." << std::endl;
+            return 1;  // Exit with error code
+        }
 
         // Step 4: Collect Text Overlay input
         std::cout << "Enter the text to overlay: ";
@@ -130,7 +137,6 @@ int main(int argc, char* argv[]) {
         std::cout << "Video trimmed and saved to: " << outputPathStep3 << std::endl;
 
         std::cout << "Rotating video..." << std::endl;
-        int angle = (rotationChoice == 1) ? 90 : (rotationChoice == 2) ? 180 : 270;
         rotateVideo(outputPathStep3, outputPathStep4, angle, codec);
         std::cout << "Video rotated and saved to: " << outputPathStep4 << std::endl;
 
@@ -202,30 +208,23 @@ int main(int argc, char* argv[]) {
             std::cout << "Video trimmed and saved to " << finalOutputPath << std::endl;
         } else if (choice == 4) {
             // Rotate video
-            int rotationChoice;
-
-            std::cout << "Select a rotation angle by entering the corresponding number (1, 2 or 3):" << std::endl;
+            int angle;
+            std::cout << "Select a rotation angle by entering the corresponding number:" << std::endl;
+            std::cout << "0. No rotation" << std::endl;
             std::cout << "1. 90 degrees" << std::endl;
             std::cout << "2. 180 degrees" << std::endl;
             std::cout << "3. 270 degrees" << std::endl;
-            std::cin >> rotationChoice;
+            std::cin >> angle;
 
             // Map user input to the correct angle
-            int angle;
-            if (rotationChoice == 1) {
-                angle = 90;
-            } else if (rotationChoice == 2) {
-                angle = 180;
-            } else if (rotationChoice == 3) {
-                angle = 270;
-            } else {
-                std::cerr << "Invalid selection. Please enter 1, 2, or 3." << std::endl;
+            if (angle != 0 && angle != 90 && angle != 180 && angle != 270) {
+                std::cerr << "Invalid rotation choice. Exiting..." << std::endl;
                 return 1;  // Exit with error code
             }
 
             rotateVideo(videoPath, finalOutputPath, angle, codec);
-            
             std::cout << "Video rotated and saved to " << finalOutputPath << std::endl;
+
         } else if (choice == 5) {
             // Apply filter
             int filterChoice;

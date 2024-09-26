@@ -42,6 +42,8 @@ On Windows, you can install CMake and OpenCV manually:
 1. Download and install [CMake](https://cmake.org/download/).
 2. Download and set up [OpenCV](https://opencv.org/releases/) by following the official guide: [OpenCV Installation Guide](https://docs.opencv.org/master/d3/d52/tutorial_windows_install.html).
 
+**Note**: After installing OpenCV, make sure to add OpenCV's `bin` directory to your system's `PATH` environment variable so that the OpenCV DLLs can be found at runtime.
+
 ## Project Structure
 
 CPProject/
@@ -66,14 +68,33 @@ To build and run the application, follow these steps:
 
 2. **Build the project**:
 
+   On Linux/macOS:
+
    mkdir build
    cd build
    cmake ..
    cmake --build .
 
+   On Windows:
+
+   mkdir build
+   cd build
+   cmake ..
+   cmake --build . --config Debug
+   
 3. **Run the application**:
 
-   ./VideoProcessingApp ../input/<the-name-of-your-video>
+   - On Linux/macOS:
+     
+     ./VideoProcessingApp ../input/<the-name-of-your-video>
+    
+   - On Windows:
+    
+     .\Debug\VideoProcessingApp ..\input\<the-name-of-your-video>
+
+     If you build in Release mode (using --config Release), the executable would be in the Release directory:
+
+     .\Release\VideoProcessingApp ..\input\<the-name-of-your-video>
    
    You can use any supported video format (e.g., `.mp4`, `.avi`, `.mov`).
 
@@ -97,6 +118,16 @@ Once you run the application, you’ll be presented with two options:
 6. **Apply filter**: Choose to apply a grayscale or blur filter to the video.
 
 After processing, the program will save the video in the selected format to the `output` folder.
+
+## Troubleshooting
+
+**Common Issues:**
+
+- **Error: Could not open video file for processing**: 
+  Make sure the video file path is correct and the file exists in the `input` directory.
+
+- **Error: OpenCV DLL missing** (Windows): 
+  Ensure that OpenCV's `bin` directory is added to your system’s `PATH`.
 
 ## License
 
